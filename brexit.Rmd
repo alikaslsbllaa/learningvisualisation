@@ -1,3 +1,7 @@
+#Nama: Putri Alika Salsabila
+#NIM: 16231048
+#Tugas PSD B
+
 ---
 title: "Brexit"
 date: "`r Sys.Date()`"
@@ -60,7 +64,6 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
   geom_bar() +
   facet_wrap(~region,
     nrow = 1, labeller = label_wrap_gen(width = 12),
-    # ___
     scales = "free_x"
   ) +
   guides(fill = FALSE) +
@@ -84,7 +87,6 @@ First, calculate the proportion of wrong, right, and don't know answers in each 
 
 ```{r}
 # Load necessary packages
-# Load necessary packages
 library(ggplot2)
 library(dplyr)
 library(forcats)
@@ -105,16 +107,16 @@ brexit_prop <- brexit %>%
   group_by(region) %>%
   mutate(proportion = count / sum(count))
 
-# Membuat plot dengan dodge untuk mempermudah perbandingan antar wilayah
-ggplot(brexit_prop, aes(x = region, y = proportion, fill = opinion)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_y_continuous(labels = percent_format()) +  # Ubah sumbu Y menjadi persentase
+# Membuat plot dengan facet wrap
+ggplot(brexit_prop, aes(x = opinion, y = proportion, fill = opinion)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~region) + 
+  scale_y_continuous(labels = percent_format()) + 
   labs(
     title = "Was Britain right/wrong to vote to leave EU?",
     subtitle = "YouGov Survey Results, 2-3 September 2019",
     caption = "Source: bit.ly/2lCJZVg",
-    x = "Region", y = "Proportion",
-    fill = "Opinion"
+    x = NULL, y = NULL
   ) +
   scale_fill_manual(values = c(
     "Wrong" = "#ef8a62",
@@ -126,6 +128,7 @@ ggplot(brexit_prop, aes(x = region, y = proportion, fill = opinion)) +
     legend.position = "bottom",
     legend.title = element_text(face = "bold")
   )
+#Soal nomor 2 lebih fokus melihat opini dalam setiap wilayah
 ```
 
 ### Exercise 3 - Comparing proportions across bars
@@ -133,7 +136,6 @@ ggplot(brexit_prop, aes(x = region, y = proportion, fill = opinion)) +
 Recreate the same visualisation from the previous exercise, this time dodging the bars for opinion proportions for each region, rather than faceting by region and then improve the legend. How is the story this visualisation telling different than the story the previous plot tells?
 
 ```{r}
-# Load necessary packages
 # Load necessary packages
 library(ggplot2)
 library(dplyr)
@@ -155,16 +157,15 @@ brexit_prop <- brexit %>%
   group_by(region) %>%
   mutate(proportion = count / sum(count))
 
-# Membuat plot dengan dodge
+# Membuat plot dengan dodge untuk membandingkan antar-wilayah
 ggplot(brexit_prop, aes(x = region, y = proportion, fill = opinion)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_y_continuous(labels = percent_format()) +  # Ubah sumbu Y menjadi persentase
+  geom_bar(stat = "identity", position = "dodge") +  
+  scale_y_continuous(labels = percent_format()) +  
   labs(
     title = "Was Britain right/wrong to vote to leave EU?",
     subtitle = "YouGov Survey Results, 2-3 September 2019",
     caption = "Source: bit.ly/2lCJZVg",
-    x = "Region", y = "Proportion",
-    fill = "Opinion"
+    x = NULL, y = NULL
   ) +
   scale_fill_manual(values = c(
     "Wrong" = "#ef8a62",
@@ -176,4 +177,5 @@ ggplot(brexit_prop, aes(x = region, y = proportion, fill = opinion)) +
     legend.position = "bottom",
     legend.title = element_text(face = "bold")
   )
+#Soal nomor 3 lebih fokus membandingkan opini antar-wilayah
 ```
